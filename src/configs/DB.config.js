@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 const dotenv = require("dotenv")
 dotenv.config()
 
-const DB_URL = process.env.MONGO_URI || "mongodb+srv://admin:mniAium11021989n@notifier.iibno5u.mongodb.net/notifierDB?retryWrites=true&w=majority&appName=notifier"
+const DB_URL = process.env.MONGO_URI 
 const connectDB = async () => {
     try {
         await mongoose.connect(DB_URL)
