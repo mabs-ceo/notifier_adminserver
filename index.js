@@ -20,7 +20,7 @@ connectDB();
 const app = express();
 
 // Use PORT from env or fallback
-const port = process.env.PORT || 3000;
+const port = process.env.PORT ;
 
 // Trust proxy if using a reverse proxy (e.g., NGINX, Heroku)
 app.set('trust proxy', 1);
