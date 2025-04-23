@@ -8,7 +8,8 @@ router.get('/google',
 
 router.get('/google/callback',
     passport.authenticate('google', {
-        failureRedirect: 'http://localhost:5173/join', // custom redirect if no user found
+        // failureRedirect: 'http://localhost:5173/join', // custom redirect if no user found
+        failureRedirect: 'https://admin-kappa-pied-76.vercel.app/join', // custom redirect if no user found
         failureMessage: true
       }),
       (req, res) => {
@@ -16,7 +17,8 @@ router.get('/google/callback',
       
         req.session.user={id:req.user._id}
     
-        res.redirect('http://localhost:5173/dashboard'); // your React dashboard
+        // res.redirect('http://localhost:5173/dashboard'); // your React dashboard
+        res.redirect('https://admin-kappa-pied-76.vercel.app/dashboard'); // your React dashboard
       //  res.status(200).json({status:"success",code:200,message:'User logged in.'}) // your React dashboard
       }
 );
