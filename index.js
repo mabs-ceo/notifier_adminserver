@@ -67,12 +67,14 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Routes
+
 app.use('/auth', googleAuthRoutes);
 app.use(isAuthenticated);
 app.use('/api/v1/auth/users', require('./src/routes/User.route'));
 app.use('/api/v1/providers', require('./src/routes/Provider.route'));
 app.use('/api/v1/notification', require('./src/routes/Notification.route'));
 app.use('/api/v1/send', require('./src/routes/SendNotification.route'));
+
 
 // Global error handler (optional, good practice)
 app.use((err, req, res, next) => {
