@@ -29,7 +29,7 @@ app.set('trust proxy', 1);
 app.use(helmet());
 
 // Logging for requests
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV !== 'development') {
   app.use(morgan('dev'));
 }
 
@@ -68,13 +68,13 @@ app.use(passport.session());
 
 // Routes
 
+app.get('/', (req,res)=>res.send('welcome'));
 app.use('/auth', googleAuthRoutes);
 app.use(isAuthenticated);
 app.use('/api/v1/auth/users', require('./src/routes/User.route'));
 app.use('/api/v1/providers', require('./src/routes/Provider.route'));
 app.use('/api/v1/notification', require('./src/routes/Notification.route'));
 app.use('/api/v1/send', require('./src/routes/SendNotification.route'));
-app.use('/', (req,res)=>res.send('welcome'));
 
 
 // Global error handler (optional, good practice)
