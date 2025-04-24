@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post('/register',isAuthenticated,registerUser)
 router.get('/status', isAuthenticated,(req, res) => {
-
+console.log('status')
     if (req.session.user.id && req.isAuthenticated()) {
       res.status(200).json({
         status: "success",

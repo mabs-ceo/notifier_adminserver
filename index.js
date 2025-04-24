@@ -20,8 +20,7 @@ connectDB();
 const app = express();
 
 // Use PORT from env or fallback
-const port = process.env.PORT ;
-
+const port = process.env.PORT 
 // Trust proxy if using a reverse proxy (e.g., NGINX, Heroku)
 app.set('trust proxy', 1);
 
@@ -53,7 +52,8 @@ app.use(session({
 
 // CORS Config
 app.use(cors({
-  origin: [process.env.CLIENT_URL,process.env.DEV_URL],
+  // origin: [process.env.CLIENT_URL,process.env.DEV_URL],
+  origin: [process.env.CLIENT_URL],
   credentials: true,
 }));
 
@@ -84,6 +84,16 @@ app.use((err, req, res, next) => {
 });
 
 // Start server
-app.listen(port, () => {
-  console.log(`✅ Server running in ${process.env.NODE_ENV} mode at http://localhost:${port}`);
+app.listen(port);
+
+process.on('SIGINT', async () => {
+ 
+  try {
+    await mongoose.disconnect();
+  
+    process.exit(0);
+  } catch (err) {
+    console.error('Error disconnecting from MongoDB:', err);
+    process.exit(1);
+  }
 });
