@@ -184,14 +184,22 @@ async function getAllNotification(req, res) {
 
 async function createNotification(req, res) {
   const currentDate = new Date();
-  const { providerId, name, postal, dueDate } = req.body;
+  const { providerId, name, postal, dueDate,isShow } = req.body;
 
   // Validate input
-  if (!providerId || !name || !postal || !dueDate) {
+  if (isShow === true && (!providerId || !name || !postal || !dueDate ) ) {
+    
     return res.status(400).json({
       status: "fail",
       code: 400,
       message: "All fields (providerId, name, postal, dueDate) are required.",
+    });
+  }
+  if (!isShow && !(providerId || !name  || !dueDate)  ) {
+    return res.status(400).json({
+      status: "fail",
+      code: 400,
+      message: "All fields (providerId, name, dueDate) are required.",
     });
   }
 
@@ -214,7 +222,13 @@ async function createNotification(req, res) {
       });
     }
 
-    const address = await postalSeach(postal);
+    let address = ''
+    if(isShow){
+
+      address= await postalSeach(postal);
+    }else{
+      address= 'Request privacy'
+    }
 
     const notification = new Notification({
       providerId,
@@ -224,8 +238,9 @@ async function createNotification(req, res) {
       address,
       contact: providerDetails.contact,
       dueDate: parsedDueDate,
+      isShow:isShow
     });
-
+    
     const newNotification = await notification.save();
 
     providerDetails.providedCount += 1;
@@ -269,9 +284,9 @@ async function deleteNotification(req, res) {
       });
     }
 
-    res.status(200).json({
+    res.status(204).json({
       status: "success",
-      code: 200,
+      code: 204,
       message: "Notification deleted successfully.",
     });
   } catch (error) {

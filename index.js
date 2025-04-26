@@ -9,6 +9,7 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
 const isAuthenticated = require('./src/middlewares/auth.middleware');
+const mongoose= require('mongoose');
 
 // Load env vars early
 dotenv.config();

@@ -16,21 +16,25 @@ const notificationSchema = new mongoose.Schema({
     },
     postal: {
         type: Number,
-       required: true,
+       
     },
     address: {
         type: String,
-       required: true,
+       
     },
     contact: {
         type: Number,
-        default: 12345678,
-       required: true,
+       
     },
     dueDate: {
         type: Date,
+        required:true
        
     },
+    isShow:{
+        type:Boolean,
+        default:false
+    }
     })
 
     const Notification = mongoose.model("Notification", notificationSchema)
